@@ -1,0 +1,11 @@
+# resize image
+python resize.py
+
+# train the model
+python main.py --mode train --num_domains 3 --w_hpf 0 --lambda_reg 1 --lambda_sty 1 --lambda_ds 2 --lambda_cyc 1 --train_img_dir data/x-raymed/train          --val_img_dir data/x-raymed/val --checkpoint_dir expr/checkpoints/x-raymed --sample_every 1000 --save_every 5000
+
+#generete refence image
+python main.py --mode sample --num_domains 3 --resume_iter 5000 --w_hpf 0 --checkpoint_dir expr/checkpoints/x-raymed --result_dir expr/results/x-raymed         --src_dir assets/representative/x-raymed/src --ref_dir assets/representative/x-raymed/ref
+
+# evoluation and generete single images
+python main.py --mode eval --num_domains 3 --w_hpf 0 --resume_iter 5000 --train_img_dir data/x-raymed/train --val_img_dir data/x-raymed/val --checkpoint_dir expr/checkpoints/x-raymed --eval_dir expr/eval/x-raymed 
